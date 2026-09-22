@@ -23,36 +23,44 @@
       overflow: hidden;
 
       background:
-        radial-gradient(circle at top left, #eadcff, transparent 40%),
-        radial-gradient(circle at bottom right, #d8c2ff, transparent 40%),
-        #cdb5f7;
+        radial-gradient(
+          circle at 15% 15%,
+          #f0e5ff 0%,
+          transparent 35%
+        ),
+        radial-gradient(
+          circle at 85% 85%,
+          #d8c0ff 0%,
+          transparent 40%
+        ),
+        #cdb4f4;
     }
 
     .container {
       width: 90%;
       max-width: 500px;
 
-      background: rgba(255, 255, 255, 0.88);
-
       padding: 35px 25px;
+
+      background: rgba(255, 255, 255, 0.90);
 
       border-radius: 30px;
 
       text-align: center;
 
       box-shadow:
-        0 20px 50px rgba(92, 55, 140, 0.25);
+        0 20px 50px rgba(80, 45, 130, 0.25);
 
       position: relative;
       z-index: 2;
 
-      animation: muncul 0.8s ease;
+      animation: masuk 0.6s ease;
     }
 
-    @keyframes muncul {
+    @keyframes masuk {
       from {
         opacity: 0;
-        transform: translateY(30px) scale(0.95);
+        transform: translateY(20px) scale(0.96);
       }
 
       to {
@@ -69,7 +77,9 @@
     }
 
     @keyframes goyang {
-      0%, 100% {
+
+      0%,
+      100% {
         transform: translateY(0) rotate(0deg);
       }
 
@@ -79,20 +89,22 @@
     }
 
     h1 {
-      color: #6941a5;
-      margin-bottom: 12px;
+      color: #68429b;
       font-size: 27px;
+      margin-bottom: 12px;
     }
 
     .subtitle {
-      color: #75657f;
+      color: #76647f;
       line-height: 1.6;
       margin-bottom: 25px;
     }
 
     button {
       border: none;
+
       padding: 13px 22px;
+
       margin: 6px;
 
       border-radius: 20px;
@@ -102,26 +114,34 @@
 
       cursor: pointer;
 
-      transition: 0.25s;
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
     }
 
     button:hover {
       transform: scale(1.08);
-      box-shadow: 0 8px 18px rgba(100, 65, 160, 0.2);
+
+      box-shadow:
+        0 8px 20px rgba(90, 55, 140, 0.20);
+    }
+
+    button:active {
+      transform: scale(0.96);
     }
 
     .sad {
-      background: #c9b0f2;
-      color: #4f3477;
+      background: #c9aff0;
+      color: #4e3472;
     }
 
     .happy {
-      background: #dfd0fa;
+      background: #dfd1f7;
       color: #65469a;
     }
 
     .hug {
-      background: #b99ae8;
+      background: #b795e5;
       color: white;
     }
 
@@ -129,22 +149,25 @@
       display: none;
 
       margin-top: 22px;
+
       padding: 20px;
 
       border-radius: 20px;
 
-      background: #f3ecff;
+      background: #f3edff;
 
-      color: #695579;
+      color: #69557b;
 
       line-height: 1.7;
 
-      animation: muncul 0.5s ease;
+      animation: masuk 0.4s ease;
     }
 
     .ending {
       font-size: 23px;
+
       font-weight: bold;
+
       color: #7046a8;
     }
 
@@ -157,13 +180,19 @@
 
       pointer-events: none;
 
-      animation: naik 4s linear forwards;
+      z-index: 1;
+
+      animation:
+        naik linear forwards;
     }
 
     @keyframes naik {
 
       0% {
-        transform: translateY(0) rotate(0deg);
+        transform:
+          translateY(0)
+          rotate(0deg);
+
         opacity: 1;
       }
 
@@ -181,7 +210,41 @@
 
       font-size: 12px;
 
-      color: #a28abb;
+      color: #a18abb;
+    }
+
+    @media (max-width: 480px) {
+
+      .container {
+        width: 92%;
+
+        padding:
+          30px
+          18px;
+
+        border-radius: 25px;
+      }
+
+      .character {
+        font-size: 75px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .subtitle {
+        font-size: 14px;
+      }
+
+      button {
+        font-size: 14px;
+
+        padding:
+          12px
+          18px;
+      }
+
     }
 
   </style>
@@ -190,9 +253,13 @@
 
 <body>
 
+
   <div class="container">
 
-    <div class="character" id="character">
+    <div
+      class="character"
+      id="character"
+    >
       🥺
     </div>
 
@@ -202,7 +269,10 @@
     </h1>
 
 
-    <p class="subtitle" id="subtitle">
+    <p
+      class="subtitle"
+      id="subtitle"
+    >
       Kok mukanya begitu sih 😭
       <br>
       Ada apa?
@@ -211,258 +281,655 @@
 
     <div id="buttons">
 
-      <button class="sad" onclick="sedih()">
+      <button
+        class="sad"
+        onclick="goTo('sedih')"
+      >
         Iya... 😭
       </button>
 
-      <button class="happy" onclick="bohong()">
+
+      <button
+        class="happy"
+        onclick="goTo('bohong')"
+      >
         Aku baik-baik aja 😌
       </button>
 
     </div>
 
 
-    <div class="message" id="message"></div>
+    <div
+      class="message"
+      id="message"
+    ></div>
 
 
     <div class="footer">
-      dibuat khusus untuk manusia yang sedang overthinking 🤡
+      dibuat khusus untuk manusia
+      yang sedang overthinking 🤡
     </div>
 
   </div>
 
 
-<script>
 
-  function sedih() {
+  <script>
 
-    document.getElementById("character").innerHTML = "😭";
+    /*
+    ==================================================
+    STATE WEBSITE
+    ==================================================
+    */
 
-    document.getElementById("title").innerHTML =
-      "Yaudah sini dulu...";
+    let currentPage = "awal";
 
-    document.getElementById("subtitle").innerHTML =
-      "Nangis boleh, lebay dikit juga gapapa.";
+    let endingTimer = null;
 
-    document.getElementById("buttons").innerHTML = `
 
-      <button class="hug" onclick="hug()">
-        HUGGG🫂
-      </button>
+    /*
+    ==================================================
+    HISTORY INITIALIZATION
+    ==================================================
+    */
 
-      <button class="happy" onclick="senyum()">
-        Coba senyum 😗
-      </button>
+    history.replaceState(
+      {
+        page: "awal"
+      },
+      "",
+      window.location.href
+    );
 
-    `;
 
-    showMessage(`
-      <b>Pesan penting 🚨</b>
-      <br><br>
+    /*
+    ==================================================
+    NAVIGASI
+    ==================================================
+    */
 
-      Jangan terlalu keras sama diri sendiri.
-      Kalau hari ini berat, yaudah istirahat dulu.
+    function goTo(page) {
 
-      <br><br>
+      currentPage = page;
 
-      Besok kita pikirin lagi.
-      Sekarang jangan overthinking dulu. 😭
-    `);
 
-    createHearts();
+      history.pushState(
+        {
+          page: page
+        },
+        "",
+        window.location.href
+      );
 
-  }
 
-
-  function hug() {
-
-    document.getElementById("character").innerHTML =
-      "🫂";
-
-    document.getElementById("title").innerHTML =
-      "HUGGG🫂";
-
-    document.getElementById("subtitle").innerHTML =
-      "Udah. Jangan nangis.";
-
-    showMessage(`
-      Oke, hug virtual diterima. 🫂
-
-      <br><br>
-
-      Tarik napas...
-      <br>
-      Buang napas...
-
-      <br><br>
-
-      Nah.
-
-      <br><br>
-
-      Sekarang boleh sedih lagi.
-      Tapi jangan kelamaan. 😭
-    `);
-
-    createHearts();
-
-    setTimeout(() => {
-
-      document.getElementById("title").innerHTML =
-        "Oke cukup.";
-
-      document.getElementById("subtitle").innerHTML =
-        "Sekarang waktunya berhenti cengeng.";
-
-      document.getElementById("message").innerHTML = `
-        <div class="ending">
-          DASAR CENGENG WKWKWK 😭
-        </div>
-
-        <br>
-
-        Udah sana minum air.
-        <br>
-        Terus lanjut hidup lagi. 😭
-      `;
-
-    }, 3500);
-
-  }
-
-
-  function bohong() {
-
-    document.getElementById("character").innerHTML =
-      "🤨";
-
-    document.getElementById("title").innerHTML =
-      "Yakin???";
-
-    document.getElementById("subtitle").innerHTML =
-      "Kok kayaknya bohong ya...";
-
-    document.getElementById("buttons").innerHTML = `
-
-      <button class="sad" onclick="sedih()">
-        Yaudah ketahuan 😭
-      </button>
-
-      <button class="happy" onclick="bohongLagi()">
-        BENERAN 😤
-      </button>
-
-    `;
-
-  }
-
-
-  function bohongLagi() {
-
-    document.getElementById("character").innerHTML =
-      "🧐";
-
-    document.getElementById("title").innerHTML =
-      "OHHH...";
-
-    document.getElementById("subtitle").innerHTML =
-      "Kalau gitu kenapa buka website ini? 🤨";
-
-    document.getElementById("buttons").innerHTML = `
-
-      <button class="hug" onclick="hug()">
-        Yaudah deh 🫂
-      </button>
-
-    `;
-
-  }
-
-
-  function senyum() {
-
-    document.getElementById("character").innerHTML =
-      "😊";
-
-    document.getElementById("title").innerHTML =
-      "Nahhh gitu dong 😭";
-
-    document.getElementById("subtitle").innerHTML =
-      "Senyum dikit ternyata bisa.";
-
-    showMessage(`
-      Nah, lebih enak dilihat kan? 😭
-
-      <br><br>
-
-      Masalahnya belum selesai sih...
-
-      <br>
-
-      Tapi setidaknya sekarang mukanya
-      nggak kayak mau kiamat. WKWKWK.
-    `);
-
-    createHearts();
-
-  }
-
-
-  function showMessage(text) {
-
-    const message =
-      document.getElementById("message");
-
-    message.innerHTML = text;
-
-    message.style.display = "block";
-
-  }
-
-
-  function createHearts() {
-
-    const emojis = [
-      "💜",
-      "🤍",
-      "✨",
-      "🌸",
-      "💫"
-    ];
-
-    for (let i = 0; i < 15; i++) {
-
-      const heart =
-        document.createElement("div");
-
-      heart.classList.add("heart");
-
-      heart.innerHTML =
-        emojis[
-          Math.floor(
-            Math.random() * emojis.length
-          )
-        ];
-
-      heart.style.left =
-        Math.random() * 100 + "vw";
-
-      heart.style.animationDuration =
-        (3 + Math.random() * 3) + "s";
-
-      document.body.appendChild(heart);
-
-      setTimeout(() => {
-
-        heart.remove();
-
-      }, 6000);
+      render(page);
 
     }
 
-  }
 
-</script>
+    /*
+    ==================================================
+    BACK BUTTON / GESTURE BACK
+    ==================================================
+    */
+
+    window.addEventListener(
+      "popstate",
+      function(event) {
+
+        if (
+          event.state &&
+          event.state.page
+        ) {
+
+          currentPage =
+            event.state.page;
+
+          render(currentPage);
+
+        }
+
+      }
+    );
+
+
+    /*
+    ==================================================
+    RENDER PAGE
+    ==================================================
+    */
+
+    function render(page) {
+
+      clearTimeout(endingTimer);
+
+
+      switch (page) {
+
+        case "awal":
+
+          renderAwal();
+
+          break;
+
+
+        case "sedih":
+
+          renderSedih();
+
+          break;
+
+
+        case "hug":
+
+          renderHug();
+
+          break;
+
+
+        case "senyum":
+
+          renderSenyum();
+
+          break;
+
+
+        case "bohong":
+
+          renderBohong();
+
+          break;
+
+
+        case "bohongLagi":
+
+          renderBohongLagi();
+
+          break;
+
+
+        default:
+
+          renderAwal();
+
+      }
+
+    }
+
+
+    /*
+    ==================================================
+    AWAL
+    ==================================================
+    */
+
+    function renderAwal() {
+
+      setCharacter("🥺");
+
+      setTitle(
+        "Hei... kamu lagi sedih ya?"
+      );
+
+      setSubtitle(`
+        Kok mukanya begitu sih 😭
+        <br>
+        Ada apa?
+      `);
+
+
+      setButtons(`
+
+        <button
+          class="sad"
+          onclick="goTo('sedih')"
+        >
+          Iya... 😭
+        </button>
+
+
+        <button
+          class="happy"
+          onclick="goTo('bohong')"
+        >
+          Aku baik-baik aja 😌
+        </button>
+
+      `);
+
+
+      hideMessage();
+
+    }
+
+
+    /*
+    ==================================================
+    SEDIH
+    ==================================================
+    */
+
+    function renderSedih() {
+
+      setCharacter("😭");
+
+      setTitle(
+        "Yaudah sini dulu..."
+      );
+
+      setSubtitle(
+        "Nangis boleh, lebay dikit juga gapapa."
+      );
+
+
+      setButtons(`
+
+        <button
+          class="hug"
+          onclick="goTo('hug')"
+        >
+          HUGGG🫂
+        </button>
+
+
+        <button
+          class="happy"
+          onclick="goTo('senyum')"
+        >
+          Coba senyum 😗
+        </button>
+
+      `);
+
+
+      showMessage(`
+
+        <b>Pesan penting 🚨</b>
+
+        <br><br>
+
+        Jangan terlalu keras sama diri sendiri.
+        Kalau hari ini berat,
+        yaudah istirahat dulu.
+
+        <br><br>
+
+        Besok kita pikirin lagi.
+
+        <br>
+
+        Sekarang jangan overthinking dulu. 😭
+
+      `);
+
+    }
+
+
+    /*
+    ==================================================
+    HUG
+    ==================================================
+    */
+
+    function renderHug() {
+
+      setCharacter("🫂");
+
+      setTitle(
+        "HUGGG🫂"
+      );
+
+      setSubtitle(
+        "Udah. Jangan nangis."
+      );
+
+
+      showMessage(`
+
+        Oke, hug virtual diterima. 🫂
+
+        <br><br>
+
+        Tarik napas...
+        <br>
+
+        Buang napas...
+
+        <br><br>
+
+        Nah.
+
+        <br><br>
+
+        Sekarang boleh sedih lagi.
+
+        <br>
+
+        Tapi jangan kelamaan. 😭
+
+      `);
+
+
+      createHearts();
+
+
+      /*
+      Setelah 3.5 detik,
+      berubah menjadi ending.
+      */
+
+      endingTimer =
+        setTimeout(
+          function() {
+
+            setTitle(
+              "Oke cukup."
+            );
+
+            setSubtitle(
+              "Sekarang waktunya berhenti cengeng."
+            );
+
+
+            showMessage(`
+
+              <div class="ending">
+                DASAR CENGENG WKWKWK 😭
+              </div>
+
+              <br>
+
+              Udah sana minum air.
+
+              <br>
+
+              Terus lanjut hidup lagi. 😭
+
+            `);
+
+          },
+          3500
+        );
+
+    }
+
+
+    /*
+    ==================================================
+    SENYUM
+    ==================================================
+    */
+
+    function renderSenyum() {
+
+      setCharacter("😊");
+
+      setTitle(
+        "Nahhh gitu dong 😭"
+      );
+
+      setSubtitle(
+        "Senyum dikit ternyata bisa."
+      );
+
+
+      showMessage(`
+
+        Nah, lebih enak dilihat kan? 😭
+
+        <br><br>
+
+        Masalahnya belum selesai sih...
+
+        <br><br>
+
+        Tapi setidaknya sekarang mukanya
+        nggak kayak mau kiamat.
+
+        <br><br>
+
+        WKWKWK.
+
+      `);
+
+
+      createHearts();
+
+    }
+
+
+    /*
+    ==================================================
+    BOHONG
+    ==================================================
+    */
+
+    function renderBohong() {
+
+      setCharacter("🤨");
+
+      setTitle(
+        "Yakin???"
+      );
+
+      setSubtitle(
+        "Kok kayaknya bohong ya..."
+      );
+
+
+      setButtons(`
+
+        <button
+          class="sad"
+          onclick="goTo('sedih')"
+        >
+          Yaudah ketahuan 😭
+        </button>
+
+
+        <button
+          class="happy"
+          onclick="goTo('bohongLagi')"
+        >
+          BENERAN 😤
+        </button>
+
+      `);
+
+
+      hideMessage();
+
+    }
+
+
+    /*
+    ==================================================
+    BOHONG LAGI
+    ==================================================
+    */
+
+    function renderBohongLagi() {
+
+      setCharacter("🧐");
+
+      setTitle(
+        "OHHH..."
+      );
+
+      setSubtitle(
+        "Kalau gitu kenapa buka website ini? 🤨"
+      );
+
+
+      setButtons(`
+
+        <button
+          class="hug"
+          onclick="goTo('hug')"
+        >
+          Yaudah deh 🫂
+        </button>
+
+      `);
+
+
+      hideMessage();
+
+    }
+
+
+    /*
+    ==================================================
+    ELEMENT HELPERS
+    ==================================================
+    */
+
+    function setCharacter(text) {
+
+      document.getElementById(
+        "character"
+      ).innerHTML = text;
+
+    }
+
+
+    function setTitle(text) {
+
+      document.getElementById(
+        "title"
+      ).innerHTML = text;
+
+    }
+
+
+    function setSubtitle(text) {
+
+      document.getElementById(
+        "subtitle"
+      ).innerHTML = text;
+
+    }
+
+
+    function setButtons(html) {
+
+      document.getElementById(
+        "buttons"
+      ).innerHTML = html;
+
+    }
+
+
+    function showMessage(html) {
+
+      const message =
+        document.getElementById(
+          "message"
+        );
+
+
+      message.innerHTML = html;
+
+      message.style.display =
+        "block";
+
+    }
+
+
+    function hideMessage() {
+
+      document.getElementById(
+        "message"
+      ).style.display =
+        "none";
+
+    }
+
+
+    /*
+    ==================================================
+    FLOATING EMOJIS
+    ==================================================
+    */
+
+    function createHearts() {
+
+      const emojis = [
+
+        "💜",
+        "🤍",
+        "✨",
+        "🌸",
+        "💫"
+
+      ];
+
+
+      for (
+        let i = 0;
+        i < 15;
+        i++
+      ) {
+
+        const heart =
+          document.createElement(
+            "div"
+          );
+
+
+        heart.className =
+          "heart";
+
+
+        heart.innerHTML =
+          emojis[
+            Math.floor(
+              Math.random()
+              * emojis.length
+            )
+          ];
+
+
+        heart.style.left =
+          Math.random()
+          * 100
+          + "vw";
+
+
+        heart.style.animationDuration =
+          (3 +
+          Math.random() * 3)
+          + "s";
+
+
+        document.body.appendChild(
+          heart
+        );
+
+
+        setTimeout(
+          function() {
+
+            heart.remove();
+
+          },
+          6000
+        );
+
+      }
+
+    }
+
+
+    /*
+    ==================================================
+    START
+    ==================================================
+    */
+
+    render("awal");
+
+  </script>
 
 </body>
 </html>

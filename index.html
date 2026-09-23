@@ -1,18 +1,26 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
   <title>Jangan Sedih 🥺</title>
 
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+
   <style>
+    /*
+    ==================================================
+    CSS UMUM & RESET
+    ==================================================
+    */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: Arial, sans-serif;
+      font-family: 'Fredoka', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
     }
 
     body {
@@ -36,25 +44,26 @@
         #cdb4f4;
     }
 
-    .container {
+    .view-container {
       width: 90%;
       max-width: 500px;
-
       padding: 35px 25px;
-
-      background: rgba(255, 255, 255, 0.90);
-
+      background: rgba(255, 255, 255, 0.95);
       border-radius: 30px;
-
       text-align: center;
-
-      box-shadow:
-        0 20px 50px rgba(80, 45, 130, 0.25);
-
+      box-shadow: 0 20px 50px rgba(80, 45, 130, 0.25);
       position: relative;
       z-index: 2;
-
       animation: masuk 0.6s ease;
+      display: none; /* Disembunyikan default, diatur via JS */
+      flex-direction: column;
+      align-items: center;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .view-container.active {
+      display: flex;
     }
 
     @keyframes masuk {
@@ -62,7 +71,6 @@
         opacity: 0;
         transform: translateY(20px) scale(0.96);
       }
-
       to {
         opacity: 1;
         transform: translateY(0) scale(1);
@@ -72,20 +80,12 @@
     .character {
       font-size: 85px;
       margin-bottom: 15px;
-
       animation: goyang 2.5s ease-in-out infinite;
     }
 
     @keyframes goyang {
-
-      0%,
-      100% {
-        transform: translateY(0) rotate(0deg);
-      }
-
-      50% {
-        transform: translateY(-8px) rotate(3deg);
-      }
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(3deg); }
     }
 
     h1 {
@@ -98,839 +98,759 @@
       color: #76647f;
       line-height: 1.6;
       margin-bottom: 25px;
+      font-size: 16px;
     }
 
     button {
       border: none;
-
-      padding: 13px 22px;
-
+      padding: 14px 24px;
       margin: 6px;
-
       border-radius: 20px;
-
-      font-size: 15px;
-      font-weight: bold;
-
+      font-size: 16px;
+      font-weight: 600;
       cursor: pointer;
-
-      transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     button:hover {
-      transform: scale(1.08);
-
-      box-shadow:
-        0 8px 20px rgba(90, 55, 140, 0.20);
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(90, 55, 140, 0.20);
     }
 
     button:active {
       transform: scale(0.96);
     }
 
-    .sad {
-      background: #c9aff0;
-      color: #4e3472;
-    }
-
-    .happy {
-      background: #dfd1f7;
-      color: #65469a;
-    }
-
-    .hug {
-      background: #b795e5;
-      color: white;
+    .sad { background: #c9aff0; color: #4e3472; }
+    .happy { background: #dfd1f7; color: #65469a; }
+    .hug { background: #b795e5; color: white; }
+    
+    .btn-play-games {
+      background: #ffb6b9;
+      color: #8a3a3d;
+      margin-top: 20px;
+      width: 100%;
+      box-shadow: 0 4px 12px rgba(255, 182, 185, 0.5);
     }
 
     .message {
       display: none;
-
       margin-top: 22px;
-
       padding: 20px;
-
       border-radius: 20px;
-
       background: #f3edff;
-
       color: #69557b;
-
       line-height: 1.7;
-
       animation: masuk 0.4s ease;
+      width: 100%;
     }
 
     .ending {
       font-size: 23px;
-
       font-weight: bold;
-
       color: #7046a8;
     }
 
     .heart {
       position: fixed;
-
       bottom: -40px;
-
-      font-size: 24px;
-
+      font-size: 28px;
       pointer-events: none;
-
-      z-index: 1;
-
-      animation:
-        naik linear forwards;
+      z-index: 999;
+      animation: naik linear forwards;
     }
 
     @keyframes naik {
-
-      0% {
-        transform:
-          translateY(0)
-          rotate(0deg);
-
-        opacity: 1;
-      }
-
-      100% {
-        transform:
-          translateY(-110vh)
-          rotate(360deg);
-
-        opacity: 0;
-      }
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
     }
 
     .footer {
       margin-top: 20px;
-
       font-size: 12px;
-
       color: #a18abb;
     }
 
-    @media (max-width: 480px) {
-
-      .container {
-        width: 92%;
-
-        padding:
-          30px
-          18px;
-
-        border-radius: 25px;
-      }
-
-      .character {
-        font-size: 75px;
-      }
-
-      h1 {
-        font-size: 24px;
-      }
-
-      .subtitle {
-        font-size: 14px;
-      }
-
-      button {
-        font-size: 14px;
-
-        padding:
-          12px
-          18px;
-      }
-
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .game-header h2 { font-size: 20px; color: #7b58a1; }
+    .score-badge {
+      background: #e3d3f8; color: #5a3e7a;
+      padding: 6px 14px; border-radius: 20px; font-weight: 600; font-size: 14px;
     }
 
+    .canvas-container {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+
+    canvas {
+      background-color: #f8f4ff;
+      border: 4px solid #d8c0ff;
+      border-radius: 20px;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+      max-width: 100%;
+    }
+
+    .game-over-overlay {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.85);
+      border-radius: 16px;
+      display: none; flex-direction: column; justify-content: center; align-items: center;
+      z-index: 10;
+    }
+    .game-over-overlay h3 { color: #d65076; margin-bottom: 5px; font-size: 22px; }
+    .game-over-overlay p { margin-bottom: 15px; font-weight: 600; color: #5a3e7a; }
+
+    .d-pad {
+      display: grid;
+      grid-template-columns: 65px 65px 65px;
+      grid-template-rows: 65px 65px 65px;
+      gap: 8px;
+      margin-bottom: 15px;
+      justify-content: center;
+    }
+
+    .d-pad button {
+      width: 65px; height: 65px; padding: 0; margin: 0;
+      border-radius: 20px;
+      background: #e9deff; color: #7046a8;
+      font-size: 28px;
+      box-shadow: 0 5px 0 #d0bdff;
+      display: flex; justify-content: center; align-items: center;
+    }
+    .d-pad button:active { transform: translateY(5px); box-shadow: 0 0 0 #d0bdff; }
+
+    .btn-up { grid-column: 2; grid-row: 1; }
+    .btn-left { grid-column: 1; grid-row: 2; }
+    .btn-right { grid-column: 3; grid-row: 2; }
+    .btn-down { grid-column: 2; grid-row: 3; }
+
+    .tap-area {
+      width: 100%;
+      padding: 20px 0;
+      background: #dfd1f7;
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #65469a;
+      font-weight: 600;
+      font-size: 20px;
+      margin-bottom: 15px;
+      box-shadow: 0 6px 0 #c9aff0;
+      cursor: pointer;
+    }
+    .tap-area:active { transform: translateY(6px); box-shadow: 0 0 0 #c9aff0; }
+
+    .btn-menu-list { background: #f0e5ff; color: #7046a8; width: 100%; margin-bottom: 12px; }
+
+    @media (max-width: 480px) {
+      .view-container { width: 92%; padding: 30px 18px; border-radius: 25px; }
+      .character { font-size: 75px; }
+      h1 { font-size: 24px; }
+      .subtitle { font-size: 14px; }
+      button { font-size: 14px; padding: 12px 18px; }
+    }
   </style>
 </head>
-
-
 <body>
 
+  <div class="view-container active" id="view-story">
+    <div class="character" id="character">🥺</div>
+    <h1 id="title">Hei... kamu lagi sedih ya?</h1>
+    <p class="subtitle" id="subtitle">Kok mukanya begitu sih 😭<br>Ada apa?</p>
+    
+    <div id="buttons"></div>
+    <div class="message" id="message"></div>
 
-  <div class="container">
-
-    <div
-      class="character"
-      id="character"
-    >
-      🥺
-    </div>
-
-
-    <h1 id="title">
-      Hei... kamu lagi sedih ya?
-    </h1>
-
-
-    <p
-      class="subtitle"
-      id="subtitle"
-    >
-      Kok mukanya begitu sih 😭
-      <br>
-      Ada apa?
-    </p>
-
-
-    <div id="buttons">
-
-      <button
-        class="sad"
-        onclick="goTo('sedih')"
-      >
-        Iya... 😭
-      </button>
-
-
-      <button
-        class="happy"
-        onclick="goTo('bohong')"
-      >
-        Aku baik-baik aja 😌
-      </button>
-
-    </div>
-
-
-    <div
-      class="message"
-      id="message"
-    ></div>
-
+    <button class="btn-play-games" id="btn-play" onclick="openGameMenu()" style="display: none;">
+      Main Game Lucu Yuk 🎮
+    </button>
 
     <div class="footer">
-      dibuat khusus untuk manusia
-      yang sedang overthinking 🤡
+      dibuat khusus untuk manusia yang sedang overthinking 🤡
     </div>
+  </div>
 
+  <div class="view-container" id="view-game-menu">
+    <div class="character" style="font-size: 60px;">🎮</div>
+    <h1>Pilih Game Buat Santai</h1>
+    <p class="subtitle">Mainnya pelan-pelan aja, nggak usah emosi ✨</p>
+
+    <button class="btn-menu-list" style="background:#bdf2d5; color:#2d6b49" onclick="openGame('snake')">🐍 Ular Gak Berbisaa</button>
+    <button class="btn-menu-list" style="background:#ffe4b5; color:#8b5a00" onclick="openGame('flappy')">🐦 Burung Pipit</button>
+    <button class="btn-menu-list" style="background:#ffcccb; color:#8b0000" onclick="openGame('runner')">🏃 Lari Dari Rutinitas</button>
+    
+    <button class="sad" style="margin-top: 15px; width: 100%;" onclick="backToStory()">🔙 Kembali ke Cerita</button>
+  </div>
+
+  <div class="view-container" id="view-snake">
+    <div class="game-header">
+      <h2>🐍 Ular Santuy</h2>
+      <div class="score-badge">Skor: <span id="score-snake">0</span></div>
+    </div>
+    <div class="canvas-container">
+      <canvas id="canvas-snake" width="288" height="288"></canvas>
+      <div class="game-over-overlay" id="go-snake">
+        <h3>Yah Gigit Ekor 😭</h3>
+        <p>Skor Kamu: <span id="fs-snake">0</span></p>
+        <button class="happy" onclick="startSnake()">Main Lagi</button>
+      </div>
+    </div>
+    <div class="d-pad">
+      <button class="btn-up" id="s-up">🔼</button>
+      <button class="btn-left" id="s-left">◀️</button>
+      <button class="btn-right" id="s-right">▶️</button>
+      <button class="btn-down" id="s-down">🔽</button>
+    </div>
+    <button class="btn-menu-list" onclick="openGameMenu()">🔙 Kembali ke Menu</button>
+  </div>
+
+  <div class="view-container" id="view-flappy">
+    <div class="game-header">
+      <h2>🐦 Burung Santuy</h2>
+      <div class="score-badge">Skor: <span id="score-flappy">0</span></div>
+    </div>
+    <div class="canvas-container">
+      <canvas id="canvas-flappy" width="280" height="340"></canvas>
+      <div class="game-over-overlay" id="go-flappy">
+        <h3>Jatuh 😭</h3>
+        <p>Skor Kamu: <span id="fs-flappy">0</span></p>
+        <button class="happy" onclick="startFlappy()">Main Lagi</button>
+      </div>
+    </div>
+    <div class="tap-area" id="tap-flappy">
+      👆 LOMPAT 👆
+    </div>
+    <button class="btn-menu-list" onclick="openGameMenu()">🔙 Kembali ke Menu</button>
+  </div>
+
+  <div class="view-container" id="view-runner">
+    <div class="game-header">
+      <h2>🏃 Lari Pagi</h2>
+      <div class="score-badge">Skor: <span id="score-runner">0</span></div>
+    </div>
+    <div class="canvas-container">
+      <canvas id="canvas-runner" width="280" height="220"></canvas>
+      <div class="game-over-overlay" id="go-runner">
+        <h3>Kesandung 😭</h3>
+        <p>Skor Kamu: <span id="fs-runner">0</span></p>
+        <button class="happy" onclick="startRunner()">Main Lagi</button>
+      </div>
+    </div>
+    <div class="tap-area" id="tap-runner">
+      👆 LOMPAT 👆
+    </div>
+    <button class="btn-menu-list" onclick="openGameMenu()">🔙 Kembali ke Menu</button>
   </div>
 
 
-
   <script>
-
     /*
     ==================================================
-    STATE WEBSITE
+    STATE & NAVIGASI CERITA ASLI
     ==================================================
     */
-
     let currentPage = "awal";
-
     let endingTimer = null;
 
-
-    /*
-    ==================================================
-    HISTORY INITIALIZATION
-    ==================================================
-    */
-
-    history.replaceState(
-      {
-        page: "awal"
-      },
-      "",
-      window.location.href
-    );
-
-
-    /*
-    ==================================================
-    NAVIGASI
-    ==================================================
-    */
+    history.replaceState({ page: "awal" }, "", window.location.href);
 
     function goTo(page) {
-
       currentPage = page;
-
-
-      history.pushState(
-        {
-          page: page
-        },
-        "",
-        window.location.href
-      );
-
-
+      history.pushState({ page: page }, "", window.location.href);
       render(page);
-
     }
 
-
-    /*
-    ==================================================
-    BACK BUTTON / GESTURE BACK
-    ==================================================
-    */
-
-    window.addEventListener(
-      "popstate",
-      function(event) {
-
-        if (
-          event.state &&
-          event.state.page
-        ) {
-
-          currentPage =
-            event.state.page;
-
-          render(currentPage);
-
-        }
-
+    window.addEventListener("popstate", function(event) {
+      if (event.state && event.state.page) {
+        currentPage = event.state.page;
+        render(currentPage);
       }
-    );
-
-
-    /*
-    ==================================================
-    RENDER PAGE
-    ==================================================
-    */
+    });
 
     function render(page) {
-
       clearTimeout(endingTimer);
-
+      
+      // Tampilkan tombol main game selalu ada di bawah cerita
+      document.getElementById('btn-play').style.display = 'block';
 
       switch (page) {
-
-        case "awal":
-
-          renderAwal();
-
-          break;
-
-
-        case "sedih":
-
-          renderSedih();
-
-          break;
-
-
-        case "hug":
-
-          renderHug();
-
-          break;
-
-
-        case "senyum":
-
-          renderSenyum();
-
-          break;
-
-
-        case "bohong":
-
-          renderBohong();
-
-          break;
-
-
-        case "bohongLagi":
-
-          renderBohongLagi();
-
-          break;
-
-
-        default:
-
-          renderAwal();
-
+        case "awal": renderAwal(); break;
+        case "sedih": renderSedih(); break;
+        case "hug": renderHug(); break;
+        case "senyum": renderSenyum(); break;
+        case "bohong": renderBohong(); break;
+        case "bohongLagi": renderBohongLagi(); break;
+        default: renderAwal();
       }
-
     }
-
 
     /*
     ==================================================
-    AWAL
+    RENDER KONTEN CERITA ASLI
     ==================================================
     */
-
     function renderAwal() {
-
       setCharacter("🥺");
-
-      setTitle(
-        "Hei... kamu lagi sedih ya?"
-      );
-
-      setSubtitle(`
-        Kok mukanya begitu sih 😭
-        <br>
-        Ada apa?
-      `);
-
-
+      setTitle("Hei... kamu lagi sedih ya?");
+      setSubtitle("Kok mukanya begitu sih 😭<br>Ada apa?");
       setButtons(`
-
-        <button
-          class="sad"
-          onclick="goTo('sedih')"
-        >
-          Iya... 😭
-        </button>
-
-
-        <button
-          class="happy"
-          onclick="goTo('bohong')"
-        >
-          Aku baik-baik aja 😌
-        </button>
-
+        <button class="sad" onclick="goTo('sedih')">Iya... 😭</button>
+        <button class="happy" onclick="goTo('bohong')">Aku baik-baik aja 😌</button>
       `);
-
-
       hideMessage();
-
     }
-
-
-    /*
-    ==================================================
-    SEDIH
-    ==================================================
-    */
 
     function renderSedih() {
-
       setCharacter("😭");
-
-      setTitle(
-        "Yaudah sini dulu..."
-      );
-
-      setSubtitle(
-        "Nangis boleh, lebay dikit juga gapapa."
-      );
-
-
+      setTitle("Yaudah sini dulu...");
+      setSubtitle("Nangis boleh, lebay dikit juga gapapa.");
       setButtons(`
-
-        <button
-          class="hug"
-          onclick="goTo('hug')"
-        >
-          HUGGG🫂
-        </button>
-
-
-        <button
-          class="happy"
-          onclick="goTo('senyum')"
-        >
-          Coba senyum 😗
-        </button>
-
+        <button class="hug" onclick="goTo('hug')">HUGGG🫂</button>
+        <button class="happy" onclick="goTo('senyum')">Coba senyum 😗</button>
       `);
-
-
       showMessage(`
-
-        <b>Pesan penting 🚨</b>
-
-        <br><br>
-
+        <b>Pesan penting 🚨</b><br><br>
         Jangan terlalu keras sama diri sendiri.
-        Kalau hari ini berat,
-        yaudah istirahat dulu.
-
-        <br><br>
-
-        Besok kita pikirin lagi.
-
-        <br>
-
+        Kalau hari ini berat, yaudah istirahat dulu.<br><br>
+        Besok kita pikirin lagi.<br>
         Sekarang jangan overthinking dulu. 😭
-
       `);
-
     }
-
-
-    /*
-    ==================================================
-    HUG
-    ==================================================
-    */
 
     function renderHug() {
-
       setCharacter("🫂");
-
-      setTitle(
-        "HUGGG🫂"
-      );
-
-      setSubtitle(
-        "Udah. Jangan nangis."
-      );
-
-
+      setTitle("HUGGG🫂");
+      setSubtitle("Udah. Jangan nangis.");
+      setButtons(""); // Hilangkan tombol di ending
       showMessage(`
-
-        Oke, hug virtual diterima. 🫂
-
-        <br><br>
-
-        Tarik napas...
-        <br>
-
-        Buang napas...
-
-        <br><br>
-
-        Nah.
-
-        <br><br>
-
-        Sekarang boleh sedih lagi.
-
-        <br>
-
+        Oke, hug virtual diterima. 🫂<br><br>
+        Tarik napas...<br>Buang napas...<br><br>
+        Nah.<br><br>Sekarang boleh sedih lagi.<br>
         Tapi jangan kelamaan. 😭
-
       `);
-
-
       createHearts();
 
-
-      /*
-      Setelah 3.5 detik,
-      berubah menjadi ending.
-      */
-
-      endingTimer =
-        setTimeout(
-          function() {
-
-            setTitle(
-              "Oke cukup."
-            );
-
-            setSubtitle(
-              "Sekarang waktunya berhenti cengeng."
-            );
-
-
-            showMessage(`
-
-              <div class="ending">
-                DASAR CENGENG WKWKWK 😭
-              </div>
-
-              <br>
-
-              Udah sana minum air.
-
-              <br>
-
-              Terus lanjut hidup lagi. 😭
-
-            `);
-
-          },
-          3500
-        );
-
+      endingTimer = setTimeout(function() {
+        setTitle("Oke cukup.");
+        setSubtitle("Sekarang waktunya berhenti cengeng.");
+        showMessage(`
+          <div class="ending">DASAR CENGENG WKWKWK :v</div><br>
+          Udah sana minum air.<br>
+          Terus lanjut bersemangatttt lagiiiii. 
+        `);
+      }, 3500);
     }
-
-
-    /*
-    ==================================================
-    SENYUM
-    ==================================================
-    */
 
     function renderSenyum() {
-
       setCharacter("😊");
-
-      setTitle(
-        "Nahhh gitu dong 😭"
-      );
-
-      setSubtitle(
-        "Senyum dikit ternyata bisa."
-      );
-
-
+      setTitle("Nahhh gitu dong 😭");
+      setSubtitle("Senyum dikit ternyata bisa.");
+      setButtons(""); // Hilangkan tombol di ending
       showMessage(`
-
-        Nah, lebih enak dilihat kan? 😭
-
-        <br><br>
-
-        Masalahnya belum selesai sih...
-
-        <br><br>
-
-        Tapi setidaknya sekarang mukanya
-        nggak kayak mau kiamat.
-
-        <br><br>
-
+        Nah, lebih enak dilihat kan? 😭<br><br>
+        Masalahnya belum selesai sih...<br><br>
+        Tapi setidaknya sekarang mukanya nggak kayak mau kiamat.<br><br>
         WKWKWK.
-
       `);
-
-
       createHearts();
-
     }
-
-
-    /*
-    ==================================================
-    BOHONG
-    ==================================================
-    */
 
     function renderBohong() {
-
       setCharacter("🤨");
-
-      setTitle(
-        "Yakin???"
-      );
-
-      setSubtitle(
-        "Kok kayaknya bohong ya..."
-      );
-
-
+      setTitle("Yakin???");
+      setSubtitle("Kok kayaknya bohong ya...");
       setButtons(`
-
-        <button
-          class="sad"
-          onclick="goTo('sedih')"
-        >
-          Yaudah ketahuan 😭
-        </button>
-
-
-        <button
-          class="happy"
-          onclick="goTo('bohongLagi')"
-        >
-          BENERAN 😤
-        </button>
-
+        <button class="sad" onclick="goTo('sedih')">Yaudah ketahuan 😭</button>
+        <button class="happy" onclick="goTo('bohongLagi')">BENERAN 😤</button>
       `);
-
-
       hideMessage();
-
     }
-
-
-    /*
-    ==================================================
-    BOHONG LAGI
-    ==================================================
-    */
 
     function renderBohongLagi() {
-
       setCharacter("🧐");
-
-      setTitle(
-        "OHHH..."
-      );
-
-      setSubtitle(
-        "Kalau gitu kenapa buka website ini? 🤨"
-      );
-
-
+      setTitle("OHHH...");
+      setSubtitle("Kalau gitu kenapa buka website ini? 🤨");
       setButtons(`
-
-        <button
-          class="hug"
-          onclick="goTo('hug')"
-        >
-          Yaudah deh 🫂
-        </button>
-
+        <button class="hug" onclick="goTo('hug')">Yaudah deh 🫂</button>
       `);
-
-
       hideMessage();
-
     }
 
-
-    /*
-    ==================================================
-    ELEMENT HELPERS
-    ==================================================
-    */
-
-    function setCharacter(text) {
-
-      document.getElementById(
-        "character"
-      ).innerHTML = text;
-
-    }
-
-
-    function setTitle(text) {
-
-      document.getElementById(
-        "title"
-      ).innerHTML = text;
-
-    }
-
-
-    function setSubtitle(text) {
-
-      document.getElementById(
-        "subtitle"
-      ).innerHTML = text;
-
-    }
-
-
-    function setButtons(html) {
-
-      document.getElementById(
-        "buttons"
-      ).innerHTML = html;
-
-    }
-
-
+    // Helper Fungsi
+    function setCharacter(text) { document.getElementById("character").innerHTML = text; }
+    function setTitle(text) { document.getElementById("title").innerHTML = text; }
+    function setSubtitle(text) { document.getElementById("subtitle").innerHTML = text; }
+    function setButtons(html) { document.getElementById("buttons").innerHTML = html; }
+    
     function showMessage(html) {
-
-      const message =
-        document.getElementById(
-          "message"
-        );
-
-
-      message.innerHTML = html;
-
-      message.style.display =
-        "block";
-
+      const msg = document.getElementById("message");
+      msg.innerHTML = html;
+      msg.style.display = "block";
     }
-
-
+    
     function hideMessage() {
-
-      document.getElementById(
-        "message"
-      ).style.display =
-        "none";
-
+      document.getElementById("message").style.display = "none";
     }
-
-
-    /*
-    ==================================================
-    FLOATING EMOJIS
-    ==================================================
-    */
 
     function createHearts() {
-
-      const emojis = [
-
-        "💜",
-        "🤍",
-        "✨",
-        "🌸",
-        "💫"
-
-      ];
-
-
-      for (
-        let i = 0;
-        i < 15;
-        i++
-      ) {
-
-        const heart =
-          document.createElement(
-            "div"
-          );
-
-
-        heart.className =
-          "heart";
-
-
-        heart.innerHTML =
-          emojis[
-            Math.floor(
-              Math.random()
-              * emojis.length
-            )
-          ];
-
-
-        heart.style.left =
-          Math.random()
-          * 100
-          + "vw";
-
-
-        heart.style.animationDuration =
-          (3 +
-          Math.random() * 3)
-          + "s";
-
-
-        document.body.appendChild(
-          heart
-        );
-
-
-        setTimeout(
-          function() {
-
-            heart.remove();
-
-          },
-          6000
-        );
-
+      const emojis = ["💜", "🤍", "✨", "🌸", "💫"];
+      for (let i = 0; i < 15; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
       }
-
     }
 
 
     /*
     ==================================================
-    START
+    NAVIGASI MINI GAMES
     ==================================================
     */
+    let currentGameLoop = null;
 
+    function showView(viewId) {
+      document.querySelectorAll('.view-container').forEach(v => v.classList.remove('active'));
+      document.getElementById(viewId).classList.add('active');
+    }
+
+    function openGameMenu() {
+      stopCurrentGame();
+      showView('view-game-menu');
+    }
+
+    function backToStory() {
+      showView('view-story');
+    }
+
+    function openGame(gameName) {
+      stopCurrentGame();
+      showView('view-' + gameName);
+      if (gameName === 'snake') startSnake();
+      if (gameName === 'flappy') startFlappy();
+      if (gameName === 'runner') startRunner();
+    }
+
+    function stopCurrentGame() {
+      if (currentGameLoop) {
+        clearInterval(currentGameLoop);
+        cancelAnimationFrame(currentGameLoop);
+      }
+    }
+
+    function drawEmoji(ctx, emoji, x, y, size) {
+      ctx.font = size + "px 'Fredoka', Arial";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(emoji, x + size/2, y + size/2);
+    }
+
+
+    /*
+    ==================================================
+    GAME 1: SNAKE XENZIA (Tembus Dinding & Lambat)
+    ==================================================
+    */
+    const ctxSnake = document.getElementById('canvas-snake').getContext('2d');
+    const sCanvas = document.getElementById('canvas-snake');
+    let snake, food, sDx, sDy, sNextDx, sNextDy, sScore, sGrid = 16;
+    
+    function startSnake() {
+      document.getElementById('go-snake').style.display = 'none';
+      snake = [ {x: 144, y: 144}, {x: 128, y: 144}, {x: 112, y: 144} ];
+      sDx = sGrid; sDy = 0; sNextDx = sGrid; sNextDy = 0;
+      sScore = 0;
+      document.getElementById('score-snake').innerText = sScore;
+      spawnFoodSnake();
+      
+      clearInterval(currentGameLoop);
+      // KECEPATAN SANTAI: 220ms per frame
+      currentGameLoop = setInterval(updateSnake, 220);
+    }
+
+    function spawnFoodSnake() {
+      food = {
+        x: Math.floor(Math.random() * (sCanvas.width / sGrid)) * sGrid,
+        y: Math.floor(Math.random() * (sCanvas.height / sGrid)) * sGrid
+      };
+      for (let part of snake) {
+        if (part.x === food.x && part.y === food.y) return spawnFoodSnake();
+      }
+    }
+
+    function updateSnake() {
+      sDx = sNextDx; sDy = sNextDy;
+      let head = { x: snake[0].x + sDx, y: snake[0].y + sDy };
+
+      // LOGIKA TEMBUS DINDING (Wrap-Around)
+      if (head.x >= sCanvas.width) head.x = 0;
+      else if (head.x < 0) head.x = sCanvas.width - sGrid;
+      
+      if (head.y >= sCanvas.height) head.y = 0;
+      else if (head.y < 0) head.y = sCanvas.height - sGrid;
+
+      // Gigit badan sendiri
+      for (let i = 0; i < snake.length; i++) {
+        if (head.x === snake[i].x && head.y === snake[i].y) {
+          return gameOverSnake();
+        }
+      }
+
+      snake.unshift(head);
+
+      // Makan
+      if (head.x === food.x && head.y === food.y) {
+        sScore += 10;
+        document.getElementById('score-snake').innerText = sScore;
+        spawnFoodSnake();
+      } else {
+        snake.pop();
+      }
+      drawSnake();
+    }
+
+    function drawSnake() {
+      ctxSnake.fillStyle = '#f8f4ff';
+      ctxSnake.fillRect(0, 0, sCanvas.width, sCanvas.height);
+      
+      drawEmoji(ctxSnake, "🐭", food.x - 2, food.y - 2, 20); // Makanan tikus lucu
+
+      snake.forEach((part, index) => {
+        ctxSnake.fillStyle = index === 0 ? '#4caf50' : '#81c784';
+        ctxSnake.beginPath();
+        ctxSnake.roundRect(part.x, part.y, sGrid - 1, sGrid - 1, 4);
+        ctxSnake.fill();
+      });
+    }
+
+    function gameOverSnake() {
+      clearInterval(currentGameLoop);
+      document.getElementById('fs-snake').innerText = sScore;
+      document.getElementById('go-snake').style.display = 'flex';
+    }
+
+    // Kontrol D-Pad
+    const changeSDir = (dx, dy) => {
+      if ((dx === sGrid && sDx === -sGrid) || (dx === -sGrid && sDx === sGrid) ||
+          (dy === sGrid && sDy === -sGrid) || (dy === -sGrid && sDy === sGrid)) return;
+      sNextDx = dx; sNextDy = dy;
+    }
+    document.getElementById('s-up').ontouchstart = (e) => { e.preventDefault(); changeSDir(0, -sGrid); }
+    document.getElementById('s-down').ontouchstart = (e) => { e.preventDefault(); changeSDir(0, sGrid); }
+    document.getElementById('s-left').ontouchstart = (e) => { e.preventDefault(); changeSDir(-sGrid, 0); }
+    document.getElementById('s-right').ontouchstart = (e) => { e.preventDefault(); changeSDir(sGrid, 0); }
+    
+    document.getElementById('s-up').onmousedown = () => changeSDir(0, -sGrid);
+    document.getElementById('s-down').onmousedown = () => changeSDir(0, sGrid);
+    document.getElementById('s-left').onmousedown = () => changeSDir(-sGrid, 0);
+    document.getElementById('s-right').onmousedown = () => changeSDir(sGrid, 0);
+
+
+    /*
+    ==================================================
+    GAME 2: FLAPPY BIRD (Sangat Lambat & Melayang)
+    ==================================================
+    */
+    const ctxFlappy = document.getElementById('canvas-flappy').getContext('2d');
+    const fCanvas = document.getElementById('canvas-flappy');
+    let bird, pipes, fFrame, fScore, fGameOver;
+
+    function startFlappy() {
+      document.getElementById('go-flappy').style.display = 'none';
+      // Gravitasi sangat kecil (0.1) & lompat lembut (-3.5)
+      bird = { x: 50, y: 150, v: 0, g: 0.1, jump: -3.5, size: 28 };
+      pipes = [];
+      fFrame = 0;
+      fScore = 0;
+      fGameOver = false;
+      document.getElementById('score-flappy').innerText = fScore;
+      cancelAnimationFrame(currentGameLoop);
+      loopFlappy();
+    }
+
+    function flap() {
+      if (fGameOver) return;
+      bird.v = bird.jump;
+    }
+
+    function loopFlappy() {
+      if (fGameOver) return;
+      
+      bird.v += bird.g;
+      bird.y += bird.v;
+
+      // Pipa muncul sangat jarang
+      if (fFrame % 180 === 0) {
+        let gap = 130; // Celah besar
+        let pipeY = Math.random() * (fCanvas.height - gap - 40) + 20;
+        pipes.push({ x: fCanvas.width, top: pipeY, bottom: pipeY + gap, w: 40, passed: false });
+      }
+
+      pipes.forEach(p => {
+        p.x -= 1.2; // Bergerak sangat pelan dari kanan ke kiri
+        
+        let bx = bird.x + 4, by = bird.y + 4, bw = bird.size - 8;
+        if (bx + bw > p.x && bx < p.x + p.w) {
+          if (by < p.top || by + bw > p.bottom) gameOverFlappy();
+        }
+        if (p.x + p.w < bird.x && !p.passed) {
+          p.passed = true; fScore++;
+          document.getElementById('score-flappy').innerText = fScore;
+        }
+      });
+
+      if (pipes.length > 0 && pipes[0].x < -50) pipes.shift();
+      if (bird.y + bird.size > fCanvas.height || bird.y < 0) gameOverFlappy();
+
+      // Render
+      ctxFlappy.fillStyle = '#a2d5f2'; 
+      ctxFlappy.fillRect(0, 0, fCanvas.width, fCanvas.height);
+      
+      pipes.forEach(p => {
+        ctxFlappy.fillStyle = '#9bd47a';
+        ctxFlappy.fillRect(p.x, 0, p.w, p.top);
+        ctxFlappy.fillRect(p.x, p.bottom, p.w, fCanvas.height - p.bottom);
+        ctxFlappy.strokeStyle = '#69a347'; ctxFlappy.lineWidth = 2;
+        ctxFlappy.strokeRect(p.x, 0, p.w, p.top);
+        ctxFlappy.strokeRect(p.x, p.bottom, p.w, fCanvas.height - p.bottom);
+      });
+
+      drawEmoji(ctxFlappy, "🐦", bird.x, bird.y, bird.size);
+
+      fFrame++;
+      currentGameLoop = requestAnimationFrame(loopFlappy);
+    }
+
+    function gameOverFlappy() {
+      fGameOver = true;
+      document.getElementById('fs-flappy').innerText = fScore;
+      document.getElementById('go-flappy').style.display = 'flex';
+    }
+
+    document.getElementById('tap-flappy').ontouchstart = (e) => { e.preventDefault(); flap(); }
+    document.getElementById('tap-flappy').onmousedown = flap;
+    fCanvas.ontouchstart = (e) => { e.preventDefault(); flap(); }
+    fCanvas.onmousedown = flap;
+
+
+    /*
+    ==================================================
+    GAME 3: RUNNER (Animasi Maju Benar & Lambat)
+    ==================================================
+    */
+    const ctxRunner = document.getElementById('canvas-runner').getContext('2d');
+    const rCanvas = document.getElementById('canvas-runner');
+    let runner, obstacles, rFrame, rScore, rGameOver, groundY = 170;
+
+    function startRunner() {
+      document.getElementById('go-runner').style.display = 'none';
+      // Gravitasi lembut (0.25), lompatan pas (-7)
+      runner = { x: 30, y: groundY - 30, w: 25, h: 30, v: 0, g: 0.25, jump: -7, isGrounded: true };
+      obstacles = [];
+      rFrame = 0;
+      rScore = 0;
+      rGameOver = false;
+      document.getElementById('score-runner').innerText = rScore;
+      cancelAnimationFrame(currentGameLoop);
+      loopRunner();
+    }
+
+    function jumpRunner() {
+      if (rGameOver) return;
+      if (runner.isGrounded) {
+        runner.v = runner.jump;
+        runner.isGrounded = false;
+      }
+    }
+
+    function loopRunner() {
+      if (rGameOver) return;
+
+      runner.v += runner.g;
+      runner.y += runner.v;
+
+      if (runner.y >= groundY - runner.h) {
+        runner.y = groundY - runner.h;
+        runner.v = 0;
+        runner.isGrounded = true;
+      }
+
+      // Rintangan lambat muncul
+      if (rFrame % 150 === 0) {
+        obstacles.push({ x: rCanvas.width, y: groundY - 25, size: 25, passed: false });
+      }
+
+      obstacles.forEach(ob => {
+        // Rintangan bergerak DARI KANAN KE KIRI (x dikurangi), orang di kiri, jd orang terlihat maju
+        ob.x -= 2.2; 
+        
+        let rx = runner.x + 4, rw = runner.w - 8, ry = runner.y + 4, rh = runner.h - 4;
+        let ox = ob.x + 4, ow = ob.size - 8, oy = ob.y + 4, oh = ob.size - 8;
+        
+        if (rx < ox + ow && rx + rw > ox && ry < oy + oh && ry + rh > oy) {
+          gameOverRunner();
+        }
+
+        if (ob.x + ob.size < runner.x && !ob.passed) {
+          ob.passed = true; rScore += 10;
+          document.getElementById('score-runner').innerText = rScore;
+        }
+      });
+
+      if (obstacles.length > 0 && obstacles[0].x < -30) obstacles.shift();
+
+      // Render
+      ctxRunner.fillStyle = '#ffefd5'; // Langit sore
+      ctxRunner.fillRect(0, 0, rCanvas.width, rCanvas.height);
+      
+      ctxRunner.fillStyle = '#cd853f'; // Tanah
+      ctxRunner.fillRect(0, groundY, rCanvas.width, rCanvas.height - groundY);
+      ctxRunner.fillStyle = '#9acd32'; // Rumput
+      ctxRunner.fillRect(0, groundY, rCanvas.width, 10);
+
+      obstacles.forEach(ob => {
+        drawEmoji(ctxRunner, "🍄", ob.x, ob.y, ob.size); // Jamur
+      });
+
+      // Animasi lari standar (Emoji orang lari)
+      let rEmoji = "🏃";
+      if (!runner.isGrounded) rEmoji = "🤸"; 
+      drawEmoji(ctxRunner, rEmoji, runner.x, runner.y, 32);
+
+      rFrame++;
+      currentGameLoop = requestAnimationFrame(loopRunner);
+    }
+
+    function gameOverRunner() {
+      rGameOver = true;
+      document.getElementById('fs-runner').innerText = rScore;
+      document.getElementById('go-runner').style.display = 'flex';
+    }
+
+    document.getElementById('tap-runner').ontouchstart = (e) => { e.preventDefault(); jumpRunner(); }
+    document.getElementById('tap-runner').onmousedown = jumpRunner;
+    rCanvas.ontouchstart = (e) => { e.preventDefault(); jumpRunner(); }
+    rCanvas.onmousedown = jumpRunner;
+
+    // Inisialisasi awal
     render("awal");
-
   </script>
 
 </body>
 </html>
-
